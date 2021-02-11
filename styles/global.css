@@ -14,3 +14,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+figure {
+  content-visibility: auto;
+  contain-intrinsic-size: calc(280px + 6rem);
+  margin: 2.5rem;
+}
+
+figcaption {
+  text-transform: capitalize;
+}

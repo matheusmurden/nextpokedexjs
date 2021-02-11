@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 
 export default function NextPokedex({ list }) {
   return (
@@ -9,12 +10,15 @@ export default function NextPokedex({ list }) {
       </Head>
 
       {
-        list.map(({ id, name, height, artwork }) => (
-          <figure style={{ contentVisibility: 'auto', containIntrinsicSize: `${(height * 10) + 25}px` }} key={id}>
-          <figcaption>
-            {name}
-          </figcaption>
-          <img height={height * 10} loading="lazy" src={artwork} />
+        list.map(({ name }, index) => (
+          <figure key={index}>
+            <figcaption>{name}</figcaption>
+            <Image
+              width="280"
+              height="280"
+              loading="lazy"
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`}
+            />
           </figure>
         ))
       }
@@ -23,17 +27,10 @@ export default function NextPokedex({ list }) {
 }
 
 export async function getStaticProps(context) {
-  const list = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+  const list = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1013')
     .then(res => res.json())
-    .then(async({ results }) => await Promise.all(
-      results.map(({ url }) => (
-        fetch(url)
-          .then(res => res.json())
-          .then(({ id, name, height, sprites: { other: { 'official-artwork': { front_default } } }  }) => ({ id, name, height, artwork: front_default  }))
-          .catch(e => console.log(e))
-      ))
-    ))
-    .catch(e => console.log(e))
+    .then(({ results }) => results)
+    .catch(e => { throw new Error(e.message || e) })
 
   return {
     props: { list }, // will be passed to the page component as props
