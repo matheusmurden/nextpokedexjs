@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "baseUrl": "./",
+    "paths": { "assets/*": ["public/assets/*"] },
+    "exclude": ["node_modules", "dist"]
+  }
+}

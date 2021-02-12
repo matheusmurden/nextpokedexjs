@@ -17,7 +17,7 @@ export default function NextPokedex({ list }) {
               width="280"
               height="280"
               loading="lazy"
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`}
+              src={`/assets/artwork/${index + 1}.png`}
             />
           </figure>
         ))
@@ -26,13 +26,13 @@ export default function NextPokedex({ list }) {
   )
 }
 
-export async function getStaticProps(context) {
-  const list = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1013')
+export async function getStaticProps() {
+  const list = await fetch('https://pokeapi.co/api/v2/pokemon?limit=898')
     .then(res => res.json())
     .then(({ results }) => results)
     .catch(e => { throw new Error(e.message || e) })
 
   return {
-    props: { list }, // will be passed to the page component as props
+    props: { list },
   }
 }

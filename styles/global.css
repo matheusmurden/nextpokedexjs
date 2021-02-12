@@ -17,7 +17,7 @@ a {
 
 figure {
   content-visibility: auto;
-  contain-intrinsic-size: calc(280px + 6rem);
+  contain-intrinsic-size: 305px;
   margin: 2.5rem;
 }
 
